@@ -291,13 +291,14 @@ grapher.NodeElement.Header = class {
         this._items = [];
     }
 
-    add(id, classList, content, tooltip, handler) {
+    add(id, classList, content, tooltip, handler, handler2) {
         this._items.push({
             id: id,
             classList: classList,
             content: content,
             tooltip: tooltip,
-            handler: handler
+            handler: handler,
+            handler2: handler2
         });
     }
 
@@ -326,6 +327,9 @@ grapher.NodeElement.Header = class {
             }
             if (item.handler) {
                 element.addEventListener('click', item.handler);
+            }
+            if (item.handler2) {
+                element.addEventListener('click', item.handler2);
             }
             if (item.tooltip) {
                 let titleElement = this.createElement('title');

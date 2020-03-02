@@ -3,8 +3,7 @@
 
 var view = view || {};
 
-var zip = zip || require('./zip');
-var gzip = gzip || require('./gzip');
+var zip = zip || require('./zip');var gzip = gzip || require('./gzip');
 var tar = tar || require('./tar');
 var protobuf = protobuf || require('protobufjs');
 var prototxt = prototxt || require('protobufjs/ext/prototxt');
@@ -18,6 +17,7 @@ var grapher = grapher || require('./view-grapher');
 view.View = class {
 
     constructor(host) {
+        console.log(host);
         this._host = host;
         this._model = null;
         this._selection = [];
@@ -436,10 +436,13 @@ view.View = class {
                         }
                         const content = self.showNames && node.name ? node.name : operator.split('.').pop();
                         const tooltip = self.showNames && node.name ? operator : node.name;
+                        // add event listener
                         header.add(null, styles, content, tooltip, () => { 
                             self.showNodeProperties(node, null);
+                        }, () => {
+                            self.snedElementInfoIPC(element);
                         });
-
+                        //
                         if (node.function) {
                             header.add(null, [ 'node-item-function' ], '+', null, () => {
                                 // debugger;
@@ -944,6 +947,11 @@ view.View = class {
             });
             this._sidebar.push(documentationSidebar.render(), 'Documentation');
         }
+    }
+
+    // 
+    snedElementInfoIPC(element) {
+        Electron.ipcRenderer.send('node-visualize-page', element);
     }
 };
 

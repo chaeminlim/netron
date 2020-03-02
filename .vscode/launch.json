@@ -5,12 +5,25 @@
             "name": "Launch Program",
             "type": "node",
             "request": "launch",
+            //"cwd": "${workspaceFolder}/src/app.js",
+            "program": "${workspaceFolder}/src/app.js",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "windows": {
+              "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+            }
+        },
+        /*
+        {
+            "name": "Launch Program",
+            "type": "node",
+            "request": "launch",
             "program": "${workspaceFolder}/src/app.js",
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
             "windows": {
                 "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
             }
         },
+        */
         {
             "name": "Debug Renderer Process",
             "type": "chrome",

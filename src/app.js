@@ -20,11 +20,11 @@ class Application {
 
         electron.app.setAppUserModelId('com.lutzroeder.netron');
         electron.app.allowRendererProcessReuse = true;
+        
 
         if (!electron.app.requestSingleInstanceLock()) {
             electron.app.quit();
         }
-
         electron.app.on('second-instance', (event, commandLine, workingDirectory) => {
             const currentDirectory = process.cwd();
             process.chdir(workingDirectory);
@@ -67,6 +67,10 @@ class Application {
 
         electron.app.on('will-quit', () => {
             this._configuration.save();
+        });
+
+        electron.app.on('node-visualize-page', (elem)=>{
+            //
         });
 
         this._parseCommandLine(process.argv);
@@ -631,6 +635,10 @@ class View {
         }
         options.webPreferences = { nodeIntegration: true };
         this._window = new electron.BrowserWindow(options);
+
+        /*
+        this._window.webContents.openDevTools();
+        */
         View._position = this._window.getPosition();
         this._updateCallback = (e, data) => { 
             if (e.sender == this._window.webContents) {

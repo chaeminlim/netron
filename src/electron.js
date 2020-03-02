@@ -289,6 +289,7 @@ host.ElectronHost = class {
     }
 
     _openFile(file) {
+        console.log(file);
         if (file) {
             this._view.show('welcome spinner');
             this._readFile(file).then((buffer) => {
